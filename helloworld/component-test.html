@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <message content="hello world"></message>
+</div>
+<script>
+    // 注释的代码与下面的代码等价
+    // 也就是说Vue.extend Vue.component == Vue.component
+    // 如果不使用Vue.component注册，是无法在视图中使用定义的标签的
+
+    // 组件传参：props
+    // - 简单的用法：[prop1, prop2, prop3] 这种方法传参，限制较多，但是简单
+    // - 渐进用法：{prop1: function(){get(){}, set(){}}} 每个参数都可以自定义，比较强大
+
+/*    let mycomponent = Vue.extend({
+        props: ['content'],
+        template: '<div>{{ content}}</div>'
+    })
+    Vue.component('mycomponent', mycomponent)*/
+
+    Vue.component('message', {
+        props: ['content'],
+        template: '<div>{{ content}}</div>'
+    })
+
+
+    let vm = new Vue({
+        el: '#app'
+    })
+</script>
+</body>
+</html>
