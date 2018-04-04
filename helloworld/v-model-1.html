@@ -7,18 +7,56 @@
 </head>
 <body>
     <div id="app">
-        <h1>{{ title }}</h1>
+        <h1>{{ title | getHost}}</h1>
+        <h1>{{ 156786 | timeAgo}}</h1>
         <input type="text" v-model="message">
     </div>
     <script>
+        function furalise(time, label){
+            if (time === 1){
+                return time + label
+            }
+            return time + label + 's'
+        }
+        // 比较：=== 类型和值的比较
+        // 过滤器，dom绑定，计算属性
+        // 数组：移除(左)shift、切片(slice:正方向、反方向、元素数量)、连接(join)
+        // 求整~~
+        // 正则：转义(\)、开始(^)、结尾($)、任意字符(.)、单个字符存在或不存在(?)
+        // 字符串：replace、
+        // 实例工厂函数：Number
+        // Date类：now方法
+
+        // input tag标签 type="text"
+
         let vm = new Vue({
             el: '#app',
             data:{
                 message: 'nice'
             },
+            filters:{
+                getHost: function(url){
+                    const host = url.replace(/^https?:\/\//, '').replace(/\/.*$/, '')
+                    const parts = host.split('.').slice(-3)
+                    if (parts[0] === 'www') parts.shift()
+                    console.log(parts)
+                    return parts.join('.')
+                },
+                timeAgo: function(time){
+                    const between = Date.now() / 1000 - Number(time)
+                    if (between < 3600){
+                        return furalise(~~(between / 60), 'minute')
+                    } else if (between < 86400) {
+                        return furalise(~~(between / 3600), 'hour')
+                    } else {
+                        return furalise(~~(between / 86400), 'day')
+                    }
+                }
+
+            },
             computed:{
                 title: function(){
-                    return 'hello, ' + this.message
+                    return '' + this.message
                 }
             }
         })
