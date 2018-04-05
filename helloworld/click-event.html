@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    // v-on缩写@
+    // v-on绑定事件，可以有修饰：比如阻止事件的冒泡、默认行为等
+    
+    <div id="app">
+        <button @click="alertme">click me, see what will happen</button>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                name: 'rao bingliang'
+            },
+            methods:{
+                alertme: function(){
+                    alert('welcome, ' + this.name)
+                }
+            }
+        })
+    </script>
+</body>
+</html>
